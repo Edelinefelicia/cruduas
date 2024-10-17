@@ -10,7 +10,7 @@
         <div class="alert alert-success" >Ditemukan <strong>{{ count($data_buku) }}</strong> data dengan kata: <strong>{{ $cari }}</strong></div>
         {{-- soal ketiga tugas praktikkum step 7 --}}
         @else
-        <div class="alert alert-waring" style=" display:inline-block; margin:0px;"><h4>Data {{ $data_buku }} tidak ditemukan</div>
+        <div class="alert alert-waring" style=" display:inline-block; margin:0px;"><h4>Data {{ $cari }} tidak ditemukan</div>
         <a href="/buku" class="btn btn-warning" >Kembali</a></div>
         @endif
         <a href="{{ route('buku.create') }}" class="btn btn-primary" style=" margin-top: 10px; margin-bottom:10px ; float: right;margin-right:10px;">Tambah Buku</a>
