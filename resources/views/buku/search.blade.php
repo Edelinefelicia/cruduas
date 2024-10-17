@@ -1,26 +1,24 @@
+{{-- soal ketiga tugas praktikkum step 5 --}}
 @extends('buku.layout.layout')
 @php
     use Illuminate\Support\Facades\Session;
 @endphp
 
 @section('content')
-    {{-- soal pertama tugas praktikkum --}}
-    @if(Session::has('pesansimpan'))
-    <div class="alert alert-success">{{ Session::get('pesansimpan') }}</div>
-    @endif
-    @if(Session::has('pesanhapus'))
-    <div class="alert alert-success">{{ Session::get('pesanhapus') }}</div>
-    @endif
-    @if(Session::has('pesanupdate'))
-    <div class="alert alert-success">{{ Session::get('pesanupdate') }}</div>
-    @endif
-    <a href="{{ route('buku.create') }}" class="btn btn-primary float-end" style=" display:inline; margin-top: 10px; margin-bottom:10px ; float: right;margin-right:10px;">Tambah Buku</a>
-    {{-- soal ketiga tugas praktikkum step 4 --}}
-    <form action="{{ route('buku.search') }}" method="get">
-        @csrf
-        <input type="text" name="kata" class="form-control" placeholder="Cari..." style="width: 30%; display:inline; margin-top: 10px; margin-bottom:10px ; float: right;">
-    </form>
-    <table class="table table-stripped">
+        {{-- soal ketiga tugas praktikkum step 6 --}}
+        @if(count($data_buku))
+        <div class="alert alert-success" >Ditemukan <strong>{{ count($data_buku) }}</strong> data dengan kata: <strong>{{ $cari }}</strong></div>
+        {{-- soal ketiga tugas praktikkum step 7 --}}
+        @else
+        <div class="alert alert-waring" style=" display:inline-block; margin:0px;"><h4>Data {{ $data_buku }} tidak ditemukan</div>
+        <a href="/buku" class="btn btn-warning" >Kembali</a></div>
+        @endif
+        <a href="{{ route('buku.create') }}" class="btn btn-primary" style=" margin-top: 10px; margin-bottom:10px ; float: right;margin-right:10px;">Tambah Buku</a>
+        <form action="{{ route('buku.search') }}" method="get" style=" display:inline; margin:0px;">
+            @csrf
+            <input type="text" name="kata" class="form-control" placeholder="Cari..." style="width: 30%; display:inline-block; margin-top: 10px; margin-bottom:10px ; float: right;">
+        </form>
+                <table class="table table-stripped">
                     <thead>
                         <tr>
                             <th>id</th>
@@ -53,6 +51,16 @@
                             </tr>
                         @endforeach
 
+                        {{-- soal pertama tugas praktikkum --}}
+                        @if(Session::has('pesansimpan'))
+                        <div class="alert alert-success">{{ Session::get('pesansimpan') }}</div>
+                        @endif
+                        @if(Session::has('pesanhapus'))
+                        <div class="alert alert-success">{{ Session::get('pesanhapus') }}</div>
+                        @endif
+                        @if(Session::has('pesanupdate'))
+                        <div class="alert alert-success">{{ Session::get('pesanupdate') }}</div>
+                        @endif
 
                     </tbody>
                 </table>
