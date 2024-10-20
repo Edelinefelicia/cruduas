@@ -26,3 +26,4 @@ Route::put('/buku/{id}',[BukuController::class, 'update'])->name('buku.update');
 
 // soal ketiga tugas praktikkum step 1
 Route::get('/buku/search', [BukuController::class, 'search'])->name('buku.search');
+

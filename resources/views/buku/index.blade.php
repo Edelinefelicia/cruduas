@@ -1,9 +1,9 @@
-@extends('buku.layout.layout')
+@extends('buku.layout.mainlayouttemp')
 @php
     use Illuminate\Support\Facades\Session;
 @endphp
 
-@section('content')
+@section('content2')
     {{-- soal pertama tugas praktikkum --}}
     @if(Session::has('pesansimpan'))
     <div class="alert alert-success">{{ Session::get('pesansimpan') }}</div>
@@ -14,12 +14,15 @@
     @if(Session::has('pesanupdate'))
     <div class="alert alert-success">{{ Session::get('pesanupdate') }}</div>
     @endif
-    <a href="{{ route('buku.create') }}" class="btn btn-primary float-end" style=" display:inline; margin-top: 10px; margin-bottom:10px ; float: right;margin-right:10px;">Tambah Buku</a>
-    {{-- soal ketiga tugas praktikkum step 4 --}}
-    <form action="{{ route('buku.search') }}" method="get">
-        @csrf
-        <input type="text" name="kata" class="form-control" placeholder="Cari..." style="display:inline; width: 30%; display:inline; margin-top: 10px; margin-bottom:10px ; float: right;">
-    </form>
+    <div class="card-header">
+        <a href="{{ route('buku.create') }}" class="btn btn-primary float-end" style=" display:inline; margin-top: 10px; margin-bottom:10px ; float: right;margin-right:10px;">Tambah Buku</a>
+        {{-- soal ketiga tugas praktikkum step 4 --}}
+        <form action="{{ route('buku.search') }}" method="get">
+            @csrf
+            <input type="text" name="kata" class="form-control" placeholder="Cari..." style="display:inline; width: 30%; display:inline; margin-top: 10px; margin-bottom:10px ; float: right;height:38px; margin-right:10px">
+        </form>
+    </div>
+    <div class="card-body">
     <table class="table table-stripped">
                     <thead>
                         <tr>
@@ -58,4 +61,5 @@
                 </table>
                 <div>{{ $data_buku->links('pagination::bootstrap-5') }}</div>
                 <div><strong>Jumlah Buku: {{ $jumlah_buku }}</strong></div>
+            </div>
 @endsection

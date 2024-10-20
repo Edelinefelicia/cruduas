@@ -1,6 +1,7 @@
-@extends('buku.layout.layout')
-
-@section('content')
+{{-- @extends('buku.layout.layout') --}}
+@extends('buku.layout.mainlayouttemp')
+{{-- @section('content') --}}
+@section('content2')
     <div class="container">
         <h4> Tambah Buku </h4>
         <form method="post" action="{{ route('buku.store') }}">

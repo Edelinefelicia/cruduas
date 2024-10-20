@@ -1,23 +1,28 @@
 {{-- soal ketiga tugas praktikkum step 5 --}}
-@extends('buku.layout.layout')
+{{-- @extends('buku.layout.layout') --}}
+@extends('buku.layout.mainlayouttemp')
 @php
     use Illuminate\Support\Facades\Session;
 @endphp
 
-@section('content')
+{{-- @section('content') --}}
+@section('content2')
         {{-- soal ketiga tugas praktikkum step 6 --}}
         @if(count($data_buku))
         <div class="alert alert-success" >Ditemukan <strong>{{ count($data_buku) }}</strong> data dengan kata: <strong>{{ $cari }}</strong></div>
         {{-- soal ketiga tugas praktikkum step 7 --}}
         @else
-        <div class="alert alert-waring" style=" display:inline-block; margin:0px;"><h4>Data {{ $cari }} tidak ditemukan</div>
+        <div class="alert alert-waring" style=" display:inline-block; margin:0px;color:black;"><h4>Data {{ $cari }} tidak ditemukan</div>
         <a href="/buku" class="btn btn-warning" >Kembali</a></div>
         @endif
+        <div class="card-header">
         <a href="{{ route('buku.create') }}" class="btn btn-primary" style=" margin-top: 10px; margin-bottom:10px ; float: right;margin-right:10px;">Tambah Buku</a>
-        <form action="{{ route('buku.search') }}" method="get" style=" display:inline; margin:0px;">
-            @csrf
-            <input type="text" name="kata" class="form-control" placeholder="Cari..." style="width: 30%; display:inline-block; margin-top: 10px; margin-bottom:10px ; float: right;">
-        </form>
+            <form action="{{ route('buku.search') }}" method="get" style=" display:inline; margin:0px;">
+                @csrf
+                <input type="text" name="kata" class="form-control" placeholder="Cari..." style="width: 30%; display:inline-block; margin-top: 10px; margin-bottom:10px ; float: right;height:38px; margin-right:10px;">
+            </form>
+        </div>
+        <div class="card-body">
                 <table class="table table-stripped">
                     <thead>
                         <tr>
@@ -66,4 +71,5 @@
                 </table>
                 <div>{{ $data_buku->links('pagination::bootstrap-5') }}</div>
                 <div><strong>Jumlah Buku: {{ $jumlah_buku }}</strong></div>
+            </div>
 @endsection
