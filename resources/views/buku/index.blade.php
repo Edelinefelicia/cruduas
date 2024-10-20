@@ -27,7 +27,7 @@
                     <thead>
                         <tr>
                             <th>id</th>
-                            <th>Judul Buku</th>
+                            <th>Judul Buku1</th>
                             <th>Penulis</th>
                             <th>Harga</th>
                             <th>Tanggal Terbit</th>
