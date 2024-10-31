@@ -1,12 +1,13 @@
 {{-- soal ketiga tugas praktikkum step 5 --}}
 {{-- @extends('buku.layout.layout') --}}
-@extends('buku.layout.mainlayouttemp')
+@extends('auth.layouts')
+{{-- @extends('buku.layout.mainlayouttemp') --}}
 @php
     use Illuminate\Support\Facades\Session;
 @endphp
 
 {{-- @section('content') --}}
-@section('content2')
+@section('content')
         {{-- soal ketiga tugas praktikkum step 6 --}}
         @if(count($data_buku))
         <div class="alert alert-success" >Ditemukan <strong>{{ count($data_buku) }}</strong> data dengan kata: <strong>{{ $cari }}</strong></div>

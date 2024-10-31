@@ -1,7 +1,8 @@
 {{-- @extends('buku.layout.layout') --}}
-@extends('buku.layout.mainlayouttemp')
+{{-- @extends('buku.layout.mainlayouttemp') --}}
+@extends('auth.layouts')
 {{-- @section('content') --}}
-@section('content2')
+@section('content')
     <div class="container">
         <h4> Edit Buku </h4>
         <form method="post" action="{{ route('buku.update', $buku->id) }}">
