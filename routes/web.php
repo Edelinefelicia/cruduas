@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\BukuController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Artisan::call('storage:link');
 Route::get('/', function () {
     return view('welcome');
 });
