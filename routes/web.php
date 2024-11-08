@@ -18,12 +18,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::delete('/gallery/{id}', [BukuController::class, 'bulkDelete'])->name('gallery.destroy');
+Route::delete('/thumbnail/{id}', [BukuController::class, 'thumbnailDelete'])->name('thumbnail.destroy');
 Route::get('/buku', [BukuController::class,'index'])->name('dashboard');
 Route::get('/buku/create', [BukuController::class,'create'])->name('buku.create');
 Route::post('/buku', [BukuController::class,'store'])->name('buku.store');
 Route::delete('/buku/{id}',[BukuController::class, 'destroy'])->name('buku.destroy');
 Route::get('/buku/{id}/edit', [BukuController::class,'edit'])->name('buku.edit');
 Route::put('/buku/{id}',[BukuController::class, 'update'])->name('buku.update');
+
+
 
 // soal ketiga tugas praktikkum step 1
 Route::get('/buku/search', [BukuController::class, 'search'])->name('buku.search');

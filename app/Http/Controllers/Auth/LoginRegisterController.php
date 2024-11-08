@@ -29,6 +29,7 @@ class LoginRegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'level' => 'admin'
         ]);
         $credentials = $request->only('email','password');
         Auth::attempt($credentials);

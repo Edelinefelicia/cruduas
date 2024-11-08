@@ -33,6 +33,7 @@
                             <th>Penulis</th>
                             <th>Harga</th>
                             <th>Tanggal Terbit</th>
+                            <th>Gambar</th>
                             @if (Auth::check() && Auth::user()->level =='admin')
                                 <th>Aksi</th>
                             @endif
@@ -46,6 +47,17 @@
                                 <td>{{ $buku->penulis }}</td>
                                 <td>{{ "Rp.".number_format($buku->harga,0,',','.') }}</td>
                                 <td>{{ $buku->tgl_terbit->format('d/m/Y')}}</td>
+
+                                @if($buku->filepath)
+                                    <td>
+                                        <div class="relative h-10 w-10">
+                                            <img class="h-full w-full rounded-full object-cover object-center" src="{{  asset($buku->filepath)}}" alt=""/>
+                                        </div>
+                                    </td>
+                                @else
+                                <td>no found</td>
+                                @endif
+
                                 @if (Auth::check()&&Auth::user()->level =='admin')
                                     <td>
                                         <form action="{{ route ('buku.destroy', $buku->id) }}" method="POST">
