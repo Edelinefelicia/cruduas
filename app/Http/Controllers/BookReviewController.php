@@ -73,6 +73,8 @@ class BookReviewController extends Controller
             }
         }
 
+        // mengambil user hanya punya tag
+
         $reviewers = User::whereHas('reviews')->get();
 
         return view('review.reviewer', compact('reviews', 'reviewers'));
