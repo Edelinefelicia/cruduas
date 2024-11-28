@@ -73,8 +73,7 @@ class BookReviewController extends Controller
             }
         }
 
-        // Get all available reviewers for the search bar
-        $reviewers = User::all();
+        $reviewers = User::whereHas('reviews')->get();
 
         return view('review.reviewer', compact('reviews', 'reviewers'));
     }
