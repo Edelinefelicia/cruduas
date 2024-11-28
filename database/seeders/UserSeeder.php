@@ -26,5 +26,11 @@ class UserSeeder extends Seeder
             'password'=>'12345677',
             'level'=>'user',
         ]);
+        User::create([
+            'name'=>'edeline3',
+            'email' => 'edelinedharmawan290623@gmail.com',
+            'password'=>'12345666',
+            'level'=>'internal_reviewer',
+        ]);
     }
 }

@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\BukuController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookReviewController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +30,21 @@ Route::delete('/buku/{id}',[BukuController::class, 'destroy'])->name('buku.destr
 Route::get('/buku/{id}/edit', [BukuController::class,'edit'])->name('buku.edit');
 Route::put('/buku/{id}',[BukuController::class, 'update'])->name('buku.update');
 
+
+// Rute untuk menampilkan formulir review (GET)
+Route::middleware('auth')->group(function () {
+    Route::get('/book-review-form', [BookReviewController::class, 'show'])->name('review.form');
+    // Rute untuk mengirimkan formulir review (POST)
+    Route::post('/book-review-form', [BookReviewController::class, 'submit'])->name('review.submit');
+});
+
+
+// Menampilkan halaman utama reviewer dan mencari berdasarkan nama reviewer
+Route::get('/reviews/reviewer', [BookReviewController::class, 'reviewsByReviewer'])->name('reviews.reviewer');
+Route::get('/reviews/reviewer/search', [BookReviewController::class, 'searchReviewer'])->name('reviews.reviewer.search');
+// Menampilkan halaman utama tag dan mencari berdasarkan tag
+Route::get('/reviews/tag', [BookReviewController::class, 'reviewsByTag'])->name('reviews.tag');
+Route::get('/reviews/tag/search', [BookReviewController::class, 'searchTag'])->name('reviews.tag.search');
 
 
 // soal ketiga tugas praktikkum step 1
