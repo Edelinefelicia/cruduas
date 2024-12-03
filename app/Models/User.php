@@ -48,4 +48,7 @@ class User extends Authenticatable
         return $this->hasMany(Review::class, 'reviewer_id'); // Use hasMany, and specify the foreign key if necessary
     }
 
+    public function bookmark(){
+        return $this->hasOne(Bookmarks::class,'id');
+    }
 }

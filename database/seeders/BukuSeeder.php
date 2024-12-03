@@ -18,7 +18,9 @@ class BukuSeeder extends Seeder
             Buku::create([
                 'judul'=>fake()->sentence(3),
                 'penulis' => fake()->name(),
-                'harga'=>fake()->numberBetween(10000,50000),
+                'harga_asli'=>fake()->numberBetween(10000,50000),
+                'diskon'=>0,
+                'harga_setelah_potongan'=>0,
                 'tgl_terbit'=>fake()->date(),
             ]);
         }

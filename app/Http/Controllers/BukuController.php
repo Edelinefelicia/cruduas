@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 // require './vendor/autoload.php';
 
+use App\Models\Bookmarks;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
@@ -13,6 +14,15 @@ use Illuminate\Http\Request;
 
 class BukuController extends Controller
 {
+    public function showdetail(string $id)
+    {
+        //
+            // dd($id);
+            $query = Buku::with(["reviews","galleries"])->where('id','=',$id);
+            $book = $query->get()->first();
+            // dd($book);
+            return view('buku.detail', compact('book'));
+    }
     public function __construct(){
         $this->middleware('admin');
     }
@@ -23,13 +33,20 @@ class BukuController extends Controller
     public function index()
     {
         //
+        // dd(10*10);
         // $data_buku = Buku::all();
+        $bookmarks = Bookmarks::where('user_id', auth()->id())
+        ->with('book')
+        ->filter(['kata' => request('kata')]) // Mengambil informasi buku yang dibookmark
+        ->limit('5')
+        ->get();
+        // dd($bookmarks);
         $batas = 5;
         $jumlah_buku = Buku::count();
         $data_buku = Buku::orderBy('id','desc')->paginate($batas);
         $no = $batas*($data_buku->currentPage() - 1);
         // dd($data_buku);
-        return view('buku.index', compact('data_buku', 'no','jumlah_buku'));
+        return view('buku.index', compact('data_buku', 'no','jumlah_buku','bookmarks'));
         // return view('buku.index', compact('data_buku'));
     }
 
@@ -56,7 +73,9 @@ class BukuController extends Controller
             'tgl_terbit' => 'required|date',
             'thumbnail' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
             'gallery' => 'nullable|array',
-            'gallery.*' => 'nullable|image|mimes:jpeg,jpg,png|max:2048'
+            'gallery.*' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+            'keterangan' => 'nullable|string',
+            'diskon' => 'nullable',
         ]);
         $buku = new Buku();
         if($request->hasFile('thumbnail')){
@@ -83,7 +102,11 @@ class BukuController extends Controller
         }
         $buku->judul = $request->judul;
         $buku->penulis = $request->penulis;
-        $buku->harga = $request->harga;
+        $buku->harga_asli = $request->harga;
+        $buku->diskon = $request->Diskon;
+
+        $buku->harga_setelah_potongan = ($request->harga)-(($request->Diskon)*($request->harga));
+
         $buku->tgl_terbit = $request->tgl_terbit;
 
         $buku->save();
@@ -104,7 +127,8 @@ class BukuController extends Controller
                 Gallery::create([
                     'nama_galeri'=> $filenameWithExt1,
                     'foto' => 'storage/'.$filePaths,
-                    'buku_id'=> $buku->id
+                    'buku_id'=> $buku->id,
+                    'keterangan' => $request->keterangan
                 ]);
             }
         }
@@ -179,7 +203,9 @@ class BukuController extends Controller
             'tgl_terbit' => 'required|date',
             'thumbnail' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
             'gallery' => 'nullable|array',
-            'gallery.*' => 'nullable|image|mimes:jpeg,jpg,png|max:2048'
+            'gallery.*' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+            'keterangan' => 'nullable|string',
+            'diskon' => 'nullable',
         ]);
         $buku = Buku::find($id);
 
@@ -233,7 +259,8 @@ class BukuController extends Controller
                 Gallery::create([
                     'nama_galeri'=> $filenameWithExt1,
                     'foto' => 'storage/'.$filePaths,
-                    'buku_id'=> $id
+                    'buku_id'=> $id,
+                    'keterangan' => $request->keterangan
                 ]);
             }
         }
@@ -258,7 +285,10 @@ class BukuController extends Controller
 
         $buku->judul = $request->judul;
         $buku->penulis = $request->penulis;
-        $buku->harga = $request->harga;
+        $buku->harga_asli = $request->harga;
+        $buku->diskon = $request->Diskon;
+        // dd();
+        $buku->harga_setelah_potongan = ($request->harga)-(($request->Diskon)*($request->harga));
         $buku->tgl_terbit = $request->tgl_terbit;
 
 

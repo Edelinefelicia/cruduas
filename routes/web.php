@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginRegisterController;
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\BukuController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -37,7 +38,13 @@ Route::middleware('auth')->group(function () {
     // Rute untuk mengirimkan formulir review (POST)
     Route::post('/book-review-form', [BookReviewController::class, 'submit'])->name('review.submit');
 });
+Route::post('/books/{bookId}/bookmark', [BookmarkController::class, 'store'])->name('books.bookmark');  // Menambahkan bookmark
+    Route::delete('/books/{bookId}/bookmark', [BookmarkController::class, 'destroy'])->name('books.removeBookmark');  // Menghapus bookmark
+    Route::get('/user/bookmarks', [BookmarkController::class, 'getBookmarks'])->name('books.getbookmark');
 
+    Route::get('/book/search', [BookmarkController::class, 'search'])->name('bookmark.search');
+
+    Route::get('/buku/{id}', [BukuController::class, 'showdetail'])->name('buku.detail');
 
 // Menampilkan halaman utama reviewer dan mencari berdasarkan nama reviewer
 Route::get('/reviews/reviewer', [BookReviewController::class, 'reviewsByReviewer'])->name('reviews.reviewer');
